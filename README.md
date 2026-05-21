@@ -1,6 +1,6 @@
-This repository contains the full Geant4 simulation framework developed as the core computational engine for my **Bachelor of Science Thesis in Physics Engineering** at **Istanbul Technical University**. 
+This repository contains the full Geant4 simulation framework developed as the core computational engine for my **Bachelor of Science Thesis in Physics Engineering** at **Istanbul Technical University**:
 
-# Machine Learning-Based Pulse Shape Discrimination in Plastic Scintillators using Geant4 Simulations
+## Machine Learning-Based Pulse Shape Discrimination in Plastic Scintillators using Geant4 Simulations
 ---
 
 ## 🎯 Thesis Overview & The Role of Geant4
