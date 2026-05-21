@@ -55,4 +55,36 @@ The detector is modeled as an isotropic cubic volume with fixed dimensions of $1
 The negative X-face strips away this reflective cladding and features a dedicated 1 cm diameter aperture opening into an independent, non-reflective Aluminum plate that serves as the effective photodetector surface. The boundary is assigned a custom `AluminumDetectorSurface` optical table where `REFLECTIVITY = 0.0` and `EFFICIENCY = 1.0`, ensuring that every arriving optical photon passing through the hole is absorbed and recorded as a digitized signal hit.
 
 
+1. **Primary Action:** Generates isotropic center-sourced particles. Dynamically passes the primary PDG code (Gamma: 22, Neutron: 2112) to the Event Action at the vertex level.
+2. **Event & Sensitive Tracking:** `PMEventAction` manages the underlying memory buffers, creating time-binned arrays (`fArrivalHist` and `fEmissionHist`). It separates pulses into unique analytical rows (`optical_arrival`, `optical_emission`, `edep_time`).
+3. **Run Termination:** `PMRunAction` handles thread-safe merging (`SetNtupleMerging(true)`) and dumps high-resolution wave columns directly into dedicated structural `.root` and `.csv` files for downstream Machine Learning models.
 
+---
+
+## 🚀 Getting Started & Build Instructions
+
+### Prerequisites
+* Geant4 (Recommended: 11.0 or higher) compiled with **QT Visualization** and **Multithreading** enabled.
+* CMake (v3.16+)
+* A standard C++17 compatible compiler (`gcc`, `clang`)
+
+### Building the Project
+```bash
+# Clone the repository
+git clone [https://github.com/TubaSatoglu/PSD-in-Plastic-Scintillator-in-Geant4-using-MLP.git](https://github.com/TubaSatoglu/PSD-in-Plastic-Scintillator-in-Geant4-using-MLP.git)
+cd PSD-in-Plastic-Scintillator-in-Geant4-using-MLP
+
+# Create a build directory
+mkdir build && cd build
+
+# Configure and compile
+cmake ..
+make -j$(nproc)
+
+To run in batch mode using a macro file (e.g., for automated multi-energy data collection scans):
+./sim run.mac
+
+
+## 🔗 Repository Citation & LinksThesis Project Code Repository:
+TubaSatoglu/PSD-in-Plastic-Scintillator-in-Geant4-using-MLP
+Supervisors: Prof. Dr. Cenap S. Özben & Prof. Dr. M. Altan Çakır (Department of Physics Engineering, Istanbul Technical University). 
