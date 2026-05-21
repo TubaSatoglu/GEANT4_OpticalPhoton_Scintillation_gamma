@@ -62,6 +62,16 @@ The negative X-face strips away this reflective cladding and features a dedicate
 
 ---
 
+> ⚠️ **Important Note on Core Execution Configuration (`sim.cc`):** Although the macro file (`run.mac`) might specify a default energy value or execution script, the actual dataset generation parameters are fully automated and driven through the main application file, **`sim.cc`**. The hardcoded routines inside `sim.cc` sequentially re-initialize the geometry and overwrite parameters directly across custom iteration loops.
+
+### ⚡ Automated Energy Scanning & Angular Analysis
+Inside the `main()` function of **`sim.cc`**, the framework is designed to execute multi-energy and angular verification loops systematically:
+
+* **Hardcoded Energy Control:** The loop parameter `E_MeV` directly controls the active energy state, instantiating `PMActionInitialization(E_MeV * MeV)` dynamically at run-time, which overrides any values provided by standard macro UI scripts.
+* **Angular Injections (Theta Control):** The framework contains a fully functional angular iteration loop (`for (int theta = 90; theta <= 90; theta += 2)`). By modifying these boundaries within `sim.cc`, the primary particle beam direction can be swept dynamically across predefined grid steps via `primaryGen->SetBeamTheta(theta * deg)`.
+* **Data Logging Alignment:** As the angular variables step through, the runtime metrics are automatically pushed to `PMEventAction::SetCurrentTheta(theta)` to ensure that each structural output block in the `.csv` generation matches the exact configuration of that specific run.
+  
+
 ## 🚀 Getting Started & Build Instructions
 
 ### Prerequisites
