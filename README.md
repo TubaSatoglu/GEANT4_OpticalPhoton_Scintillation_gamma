@@ -33,8 +33,8 @@ All physical media, along with their wavelength-dependent optical parameters, ar
   * Re-implemented using an advanced 3-component scintillation decay model (based on Holroyd 2025 constants) to enable realistic pulse shape discrimination.
   * Explicitly populates fast ($\tau_1 = 13.0\text{ ns}$), medium ($\tau_2 = 35.0\text{ ns}$), and slow ($\tau_3 = 270.0\text{ ns}$) decay channels.
   * Encodes unique relative scintillation weights to represent the prompt and delayed light emission characteristics ($w_1 = 0.76$, $w_2 = 0.18$, $w_3 = 0.06$).
-  * **Scintillation Yield & Timing Parameters:** Configured with a global quantum efficiency yield of 8600 photons per MeV (`8600./MeV`), a resolution scale of `1.0`, and a fast rise time of 0.5 ns (`SCINTILLATIONRISETIME1`).
-  * **Birks Quenching Activation:** Activates Birks Quenching by applying `SetBirksConstant(0.0125 * cm/MeV)` directly to the material's ionization tracking to correctly account for the light output reduction caused by the high ionization density of recoil protons.
+  * **Scintillation Yield & Timing Parameters:** Configured with a specific global quantum efficiency yield of 8600 photons per MeV (`8600./MeV`), a resolution scale factor of `1.0`, and an ultra-fast initial rise time of 0.5 ns (`SCINTILLATIONRISETIME1`).
+  * **Birks Quenching Activation:** Activates Birks Quenching by applying a precise empirical constant of `0.0125 * cm/MeV` directly to the material's ionization tracking layer (`plasticScint->GetIonisation()->SetBirksConstant(...)`) to correctly model the light output reduction caused by the high ionization density of recoil protons.
   
 
 ### 2. Optical Photon & Scintillation Process Tracking
