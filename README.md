@@ -3,7 +3,7 @@ This repository contains the full Geant4 simulation framework developed as the c
 ## Machine Learning-Based Pulse Shape Discrimination in Plastic Scintillators using Geant4 Simulations
 ---
 
-## 🎯 Thesis Overview & The Role of Geant4
+## 🎯 Thesis Overview & The Role of Geant4 Code
 
 The primary objective of this thesis is to achieve robust **Neutron-Gamma Pulse Shape Discrimination (PSD)** in organic plastic scintillators. Traditional methods compress high-dimensional waveforms into a single scalar parameter (such as the classical Charge Comparison method), making them highly susceptible to performance degradation at lower energies due to photon-counting noise and temporal dispersion.
 
