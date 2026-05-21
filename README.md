@@ -69,10 +69,11 @@ The negative X-face strips away this reflective cladding and features a dedicate
 * A standard C++17 compatible compiler (`gcc`, `clang`)
 
 ### Building the Project
+
 ```bash
 # Clone the repository
 git clone [https://github.com/TubaSatoglu/PSD-in-Plastic-Scintillator-in-Geant4-using-MLP.git](https://github.com/TubaSatoglu/PSD-in-Plastic-Scintillator-in-Geant4-using-MLP.git)
-cd PSD-in-Plastic-Scintillator-in-Geant4-using-MLP
+cd PSD-in-Plastic-Scintillator-in-Geant4-using-MLP ```
 
 # Create a build directory
 mkdir build && cd build
@@ -80,14 +81,3 @@ mkdir build && cd build
 # Configure and compile
 cmake ..
 make -j$(nproc)
-
-
-### Running the Simulation
-To execute the simulation in interactive GUI mode:
-Bash
-./sim
-
-
-To run in batch mode using a macro file (e.g., for automated multi-energy data collection scans):
-Bash
-./sim run.mac
