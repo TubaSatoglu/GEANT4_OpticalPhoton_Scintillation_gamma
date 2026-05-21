@@ -1,0 +1,25 @@
+/control/execute vis.mac 
+
+# Initialize Geant4
+/run/numberOfThreads 4
+/run/initialize
+
+# Set verbosity levels for debugging
+/run/verbose 2          
+/tracking/verbose 3    
+/process/em/verbose 1
+/process/optical/verbose 3
+/optical/verbose 3
+/optical/boundary/setVerbose 4  #Ensure boundary interactions are fully tracked
+
+# Define the gamma particle source
+/gun/particle gamma
+/gun/energy 2 MeV
+/gun/position 0. 0. -5. cm
+/gun/direction 0. 0. 1.
+
+/optical/scintillation/setByParticleType true
+/process/optical/scintillation/setVerbose 1
+
+/echo Starting event processing...
+/run/beamOn 300
