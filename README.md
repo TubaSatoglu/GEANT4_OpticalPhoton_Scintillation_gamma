@@ -20,7 +20,6 @@ To overcome this limitation, this project develops a **Time-Domain, Waveform-Lev
 
 To ensure reproducibility, the detailed implementation of material properties, optical photon physics, and geometry boundaries are strategically modularized.
 
-
 ### 1. Material Definitions & Optical Properties
 > **📂 Critical File Location:** `src/PMDetectorConstruction.cc`
 
@@ -34,7 +33,6 @@ All physical media, along with their wavelength-dependent optical parameters, ar
   * Encodes unique relative scintillation weights to represent the prompt and delayed light emission characteristics ($w_1 = 0.76$, $w_2 = 0.18$, $w_3 = 0.06$).
   * **Scintillation Yield & Timing Parameters:** Configured with a specific global quantum efficiency yield of 8600 photons per MeV (`8600./MeV`), a resolution scale factor of `1.0`, and an ultra-fast initial rise time of 0.5 ns (`SCINTILLATIONRISETIME1`).
   * **Birks Quenching Activation:** Activates Birks Quenching by applying a precise empirical constant of `0.0125 * cm/MeV` directly to the material's ionization tracking layer (`plasticScint->GetIonisation()->SetBirksConstant(...)`) to correctly model the light output reduction caused by the high ionization density of recoil protons.
-  
 
 ### 2. Optical Photon & Scintillation Process Tracking
 > **📂 Critical File Locations:** `src/PMPhysicsList.cc` & `src/PMSteppingAction.cc`
@@ -49,7 +47,6 @@ Optical photon tracking and process handling follow precise configuration protoc
   * Monitors tracks at the microscopic level. If the particle definition matches `G4OpticalPhoton::OpticalPhotonDefinition()`, it isolates the photon step immediately.
   * Captures the exact **Global Time** of photon arrivals at the active photodetector boundary (`physAlDetector`). These time stamps are pushed into `PMEventAction` to build the final time-domain histograms.
 
-
 ### 3. Boundary & Photodetector Definition
 > **📂 Critical File Location:** `src/PMDetectorConstruction.cc` (Inside `Construct()`)
 
@@ -57,6 +54,7 @@ The detector is modeled as an isotropic cubic volume with fixed dimensions of $1
 
 The negative X-face strips away this reflective cladding and features a dedicated 1 cm diameter aperture opening into an independent, non-reflective Aluminum plate that serves as the effective photodetector surface. The boundary is assigned a custom `AluminumDetectorSurface` optical table where `REFLECTIVITY = 0.0` and `EFFICIENCY = 1.0`, ensuring that every arriving optical photon passing through the hole is absorbed and recorded as a digitized signal hit.
 
+### 📊 Pipeline Architecture & Action Management
 
 1. **Primary Action:** Generates isotropic center-sourced particles. Dynamically passes the primary PDG code (Gamma: 22, Neutron: 2112) to the Event Action at the vertex level.
 2. **Event & Sensitive Tracking:** `PMEventAction` manages the underlying memory buffers, creating time-binned arrays (`fArrivalHist` and `fEmissionHist`). It separates pulses into unique analytical rows (`optical_arrival`, `optical_emission`, `edep_time`).
@@ -80,6 +78,10 @@ cd PSD-in-Plastic-Scintillator-in-Geant4-using-MLP
 
 # Create a build directory
 mkdir build && cd build
+
+# Configure and compile
+cmake ..
+make -j$(nproc)
 ```
 
 ### Configure and compile
