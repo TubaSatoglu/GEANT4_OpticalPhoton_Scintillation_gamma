@@ -82,7 +82,7 @@ cd PSD-in-Plastic-Scintillator-in-Geant4-using-MLP
 mkdir build && cd build
 ```
 
-# Configure and compile
+### Configure and compile
 ```bash
 cmake ..
 make -j$(nproc)
