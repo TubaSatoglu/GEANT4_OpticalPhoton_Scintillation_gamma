@@ -77,6 +77,7 @@ Inside the `main()` function of **`sim.cc`**, the framework is designed to execu
 
 ---
 
+
 ### ⚡ Automated Energy Scanning & Angular Analysis
 Inside the `main()` function of **`sim.cc`**, the framework is designed to execute multi-energy and angular verification loops systematically:
 
