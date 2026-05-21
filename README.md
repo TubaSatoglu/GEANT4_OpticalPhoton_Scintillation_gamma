@@ -21,6 +21,7 @@ To overcome this limitation, this project develops a **Time-Domain, Waveform-Lev
 
 To ensure reproducibility, the detailed implementation of material properties, optical photon physics, and geometry boundaries are strategically modularized.
 
+
 ### 1. Material Definitions & Optical Properties
 > **📂 Critical File Location:** `src/PMDetectorConstruction.cc`
 
@@ -29,10 +30,12 @@ All physical media, along with their wavelength-dependent optical parameters, ar
 * **Air (`CreateAirMaterial()`):** Defined with a constant refractive index ($n=1.0$) across the optical photon energy spectrum to fill the experimental air gaps and holes.
 * **Teflon Wrapping (`CreateTeflonMaterial()`):** Implemented using the standard NIST material database (`G4_TEFLON`) and assigned a refractive index of $n=1.35$ to act as a realistic cladding layer.
 * **EJ-276 Plastic Scintillator (`CreateScintillatorMaterial()`):**
-  * Re-implemented using an advanced **3-component scintillation decay model** (based on Holroyd 2025 constants) to enable realistic pulse shape discrimination.
+  * Re-implemented using an advanced 3-component scintillation decay model (based on Holroyd 2025 constants) to enable realistic pulse shape discrimination.
   * Explicitly populates fast ($\tau_1 = 13.0\text{ ns}$), medium ($\tau_2 = 35.0\text{ ns}$), and slow ($\tau_3 = 270.0\text{ ns}$) decay channels.
   * Encodes unique relative scintillation weights to represent the prompt and delayed light emission characteristics ($w_1 = 0.76$, $w_2 = 0.18$, $w_3 = 0.06$).
-  * Activates **Birks Quenching** (`SetBirksConstant(0.0125 * cm/MeV)`) to correctly account for the light output reduction caused by the high ionization density of recoil protons.
+  * **Scintillation Yield & Timing Parameters:** Configured with a global quantum efficiency yield of 8600 photons per MeV (`8600./MeV`), a resolution scale of `1.0`, and a fast rise time of 0.5 ns (`SCINTILLATIONRISETIME1`).
+  * **Birks Quenching Activation:** Activates Birks Quenching by applying `SetBirksConstant(0.0125 * cm/MeV)` directly to the material's ionization tracking to correctly account for the light output reduction caused by the high ionization density of recoil protons.
+  
 
 ### 2. Optical Photon & Scintillation Process Tracking
 > **📂 Critical File Locations:** `src/PMPhysicsList.cc` & `src/PMSteppingAction.cc`
@@ -46,6 +49,7 @@ Optical photon tracking and process handling follow precise configuration protoc
 * **Step-by-Step Signal Construction (`PMSteppingAction.cc`):**
   * Monitors tracks at the microscopic level. If the particle definition matches `G4OpticalPhoton::OpticalPhotonDefinition()`, it isolates the photon step immediately.
   * Captures the exact **Global Time** of photon arrivals at the active photodetector boundary (`physAlDetector`). These time stamps are pushed into `PMEventAction` to build the final time-domain histograms.
+
 
 ### 3. Boundary & Photodetector Definition
 > **📂 Critical File Location:** `src/PMDetectorConstruction.cc` (Inside `Construct()`)
@@ -77,9 +81,8 @@ cd PSD-in-Plastic-Scintillator-in-Geant4-using-MLP
 
 # Create a build directory
 mkdir build && cd build
-
-
 ```
+
 # Configure and compile
 ```bash
 cmake ..
