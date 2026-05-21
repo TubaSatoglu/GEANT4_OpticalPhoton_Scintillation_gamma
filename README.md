@@ -111,6 +111,7 @@ make -j$(nproc)
 ### Configure and compile
 ```bash
 cmake ..
+make clean
 make -j$(nproc)
 ```
 
