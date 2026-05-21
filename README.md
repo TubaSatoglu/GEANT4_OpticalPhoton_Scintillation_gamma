@@ -81,10 +81,13 @@ mkdir build && cd build
 cmake ..
 make -j$(nproc)
 
+
+### Running the Simulation
+To execute the simulation in interactive GUI mode:
+Bash
+./sim
+
+
 To run in batch mode using a macro file (e.g., for automated multi-energy data collection scans):
+Bash
 ./sim run.mac
-
-
-## 🔗 Repository Citation & LinksThesis Project Code Repository:
-TubaSatoglu/PSD-in-Plastic-Scintillator-in-Geant4-using-MLP
-Supervisors: Prof. Dr. Cenap S. Özben & Prof. Dr. M. Altan Çakır (Department of Physics Engineering, Istanbul Technical University). 
