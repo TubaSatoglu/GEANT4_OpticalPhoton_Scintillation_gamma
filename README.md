@@ -68,6 +68,19 @@ The negative X-face strips away this reflective cladding and features a dedicate
 Inside the `main()` function of **`sim.cc`**, the framework is designed to execute multi-energy and angular verification loops systematically:
 
 * **Hardcoded Energy Control:** The loop parameter `E_MeV` directly controls the active energy state, instantiating `PMActionInitialization(E_MeV * MeV)` dynamically at run-time, which overrides any values provided by standard macro UI scripts.
+
+* **Angular Injections (Theta Control):** The framework contains a fully functional angular iteration loop (`for (int theta = 90; theta <= 90; theta += 2)`). By modifying these boundaries within `sim.cc`, the primary particle beam direction can be swept dynamically across predefined grid steps via `primaryGen->SetBeamTheta(theta * deg)`. 
+  
+  > 📌 **Note on Current Isotropic State & Future Angular Scans:** Although this loop structure is currently bound between $90^\circ$ and $90^\circ$ (effectively keeping the beam loop at a single static step) and the active underlying physics in `PMPrimaryGenerator.cc` generates a **fully isotropic $4\pi$ solid angle emission**, this block serves as a ready-to-use infrastructure. By expanding the loop boundaries in `sim.cc` (e.g., changing it to `theta = 0; theta <= 180; theta += 5`) and adjusting the generator class to utilize the beam theta variable, the source configuration can be instantly transitioned from an isotropic emission profile into a directional angular scanning framework.
+
+* **Data Logging Alignment:** As the angular variables step through, the runtime metrics are automatically pushed to `PMEventAction::SetCurrentTheta(theta)` to ensure that each structural output block in the `.csv` generation matches the exact configuration of that specific run.
+
+---
+
+### ⚡ Automated Energy Scanning & Angular Analysis
+Inside the `main()` function of **`sim.cc`**, the framework is designed to execute multi-energy and angular verification loops systematically:
+
+* **Hardcoded Energy Control:** The loop parameter `E_MeV` directly controls the active energy state, instantiating `PMActionInitialization(E_MeV * MeV)` dynamically at run-time, which overrides any values provided by standard macro UI scripts.
 * **Angular Injections (Theta Control):** The framework contains a fully functional angular iteration loop (`for (int theta = 90; theta <= 90; theta += 2)`). By modifying these boundaries within `sim.cc`, the primary particle beam direction can be swept dynamically across predefined grid steps via `primaryGen->SetBeamTheta(theta * deg)`.
 * **Data Logging Alignment:** As the angular variables step through, the runtime metrics are automatically pushed to `PMEventAction::SetCurrentTheta(theta)` to ensure that each structural output block in the `.csv` generation matches the exact configuration of that specific run.
   
