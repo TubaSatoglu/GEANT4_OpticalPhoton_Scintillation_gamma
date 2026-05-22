@@ -94,19 +94,12 @@ Inside the `main()` function of **`sim.cc`**, the framework is designed to execu
 # Clone the repository
 git clone [https://github.com/TubaSatoglu/GEANT4_OpticalPhoton_Scintillation_gamma.git](https://github.com/TubaSatoglu/GEANT4_OpticalPhoton_Scintillation_gamma.git)
 
-# Navigate into the project directory
 cd GEANT4_OpticalPhoton_Scintillation_gamma
-
-# Create a build directory
-mkdir build && cd build
-
-# Configure and compile
-cmake ..
-make -j$(nproc)
 
 ```
 ### Configure and compile
 ```bash
+mkdir build && cd build
 cmake ..
 make clean
 make -j$(nproc)
