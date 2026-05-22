@@ -104,6 +104,7 @@ mkdir build && cd build
 cmake ..
 make -j$(nproc)
 
+```
 ### Configure and compile
 ```bash
 cmake ..
